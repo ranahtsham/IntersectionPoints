@@ -44,12 +44,9 @@ function animate(){
     drawDot(D, "D");
 
     const I = getIntersection(A, B, C, D);
-    drawDot(I, "I");
-
-    // drwing to visulize bottom value 
-    ctx.beginPath();
-    ctx.rect(myCanvas.width/2, 0, I.bottom/100,10);
-    ctx.fill();
+    if (I){
+        drawDot(I, "I");
+    }
 
     requestAnimationFrame(animate);
 }
@@ -64,12 +61,18 @@ function getIntersection(A, B, C, D) {
     const bottom = (D.y - C.y) * (B.x - A.x) - (D.x -C.x) * (B.y - A.y);
     const t = top / bottom;
 
-
-    return {
-        x: lerp(A.x, B.x, t),
-        y: lerp(A.y, B.y, t),
-        bottom: bottom
+    if (bottom != 0){
+        const t = top / bottom;
+        if (t >= 0 && t <= 1){
+            return {
+                x: lerp(A.x, B.x, t),
+                y: lerp(A.y, B.y, t),
+                offset: t
+            }        
+        }
     }
+
+    return null;
 }
 
 // linear interpolation
