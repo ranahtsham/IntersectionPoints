@@ -46,6 +46,11 @@ function animate(){
     const I = getIntersection(A, B, C, D);
     drawDot(I, "I");
 
+    // drwing to visulize bottom value 
+    ctx.beginPath();
+    ctx.rect(myCanvas.width/2, 0, I.bottom/100,10);
+    ctx.fill();
+
     requestAnimationFrame(animate);
 }
 
@@ -62,7 +67,8 @@ function getIntersection(A, B, C, D) {
 
     return {
         x: lerp(A.x, B.x, t),
-        y: lerp(A.y, B.y, t)
+        y: lerp(A.y, B.y, t),
+        bottom: bottom
     }
 }
 
